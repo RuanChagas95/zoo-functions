@@ -7,6 +7,6 @@ function countAnimals(animal = { species: /.*/ }) {
       count: specie.residents
         .filter((resident) => !resident.sex.replace(animal.sex || /.*/, '')).length }))
     .reduce((newCounts, specie) => ({ ...newCounts, [specie.name]: specie.count }), {});
-  return Object.keys(counts).length > 1 ? counts : counts[Object.keys(counts)[0]];
+  return Object.keys(counts).length > 1 ? counts : counts[animal.species];
 }
 module.exports = countAnimals;
