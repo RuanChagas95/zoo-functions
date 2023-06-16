@@ -1,7 +1,7 @@
 const data = require('../data/zoo_data');
 
 const { species } = data;
-function countAnimals(animal = { species: undefined }) {
+function countAnimals(animal = {}) {
   const counts = species.filter((specie) => (specie.name === (animal.species || specie.name)))
     .map((specie) => ({ name: specie.name,
       count: specie.residents
