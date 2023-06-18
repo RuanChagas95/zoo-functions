@@ -8,7 +8,7 @@ function refactMap(map, options) {
         .find((specie) => specie.name === specieName)
         .residents.filter((resident) => resident.sex === (options.sex || resident.sex))
         .map((resident) => resident.name);
-      return { [specieName]: residents };
+      return { [specieName]: options.sorted ? residents.sort() : residents };
     });
     return { ...obj, [entry[0]]: speciesResidents };
   },
@@ -23,5 +23,4 @@ const getAnimalMap = (options = {}) => {
   }
   return map;
 };
-console.log(getAnimalMap({ includeNames: true }));
 module.exports = getAnimalMap;
