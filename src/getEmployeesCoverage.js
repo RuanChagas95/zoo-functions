@@ -6,15 +6,15 @@ const getEmployeesCoverage = (employeePart) => {
   }
   try {
     const employee = employees.find((employeeCurr) => (employeeCurr.id === employeePart.id
-      || employeeCurr.firstName === employeePart.name || employeeCurr.lastName === employeePart.name));
-    const employeeSpecies = employee.responsibleFor.map((id) =>
-      species.find((specie) => specie.id === id).name);
-    const speciesLocations = employee.responsibleFor.map((id) =>
-      species.find((specie) => specie.id === id).location);
+      || employeeCurr.firstName === employeePart.name
+      || employeeCurr.lastName === employeePart.name));
+    const employeeSpecies = employee.responsibleFor.reduce((obj, id) => {
+      const { name, location } = species.find((specie) => specie.id === id);
+      return { species: [...obj.species, name], locations: [...obj.locations, location] };
+    }, { species: [], locations: [] });
     return { id: employee.id,
       fullName: `${employee.firstName} ${employee.lastName}`,
-      species: employeeSpecies,
-      locations: speciesLocations,
+      ...employeeSpecies,
     };
   } catch (error) {
     throw new Error('Informações inválidas');
