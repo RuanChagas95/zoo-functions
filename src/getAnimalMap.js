@@ -1,6 +1,5 @@
 const { species } = require('../data/zoo_data');
 
-const locations = { NE: [], NW: [], SE: [], SW: [] };
 function refactMap(map, options) {
   return Object.entries(map).reduce((obj, entry) => {
     const speciesResidents = entry[1].map((specieName) => {
@@ -15,6 +14,7 @@ function refactMap(map, options) {
   {});
 }
 const getAnimalMap = (options = {}) => {
+  const locations = { NE: [], NW: [], SE: [], SW: [] };
   const map = species.reduce((obj, specie) => ({ ...obj,
     [specie.location]: [...obj[specie.location],
       specie.name] }), locations);
