@@ -11,8 +11,9 @@ const createDay = (day) => {
   };
 };
 const getSchedule = (scheduleTarget) => {
-  if (species.find((specieCurrent) => specieCurrent.name === scheduleTarget)) {
-    return species.find((specieCurrent) => specieCurrent.name === scheduleTarget).availability;
+  const animal = species.find((specieCurrent) => specieCurrent.name === scheduleTarget);
+  if (animal) {
+    return animal.availability;
   }
 
   if (hours[scheduleTarget]) {
@@ -20,5 +21,7 @@ const getSchedule = (scheduleTarget) => {
   }
   return Object.keys(hours).reduce((obj, day) => ({ ...obj, ...createDay(day) }), {});
 };
+
+console.log(getSchedule('Sunday'));
 
 module.exports = getSchedule;
