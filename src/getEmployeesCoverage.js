@@ -1,13 +1,13 @@
 const { employees, species } = require('../data/zoo_data');
 
-const getEmployeesCoverage = (employeePart) => {
-  if (!employeePart) {
-    return employees.map((employee) => getEmployeesCoverage(employee));
-  }
+const getEmployeesCoverage = (employeePart, isFullEmployee = false) => {
+  if (!employeePart) return employees.map((employee) => getEmployeesCoverage(employee, true));
   try {
-    const employee = employees.find((employeeCurr) => (employeeCurr.id === employeePart.id
+    const employee = isFullEmployee ? employeePart : employees.find(
+      (employeeCurr) => (employeeCurr.id === employeePart.id
       || employeeCurr.firstName === employeePart.name
-      || employeeCurr.lastName === employeePart.name));
+      || employeeCurr.lastName === employeePart.name),
+    );
     const employeeSpecies = employee.responsibleFor.reduce((obj, id) => {
       const { name, location } = species.find((specie) => specie.id === id);
       return { species: [...obj.species, name], locations: [...obj.locations, location] };
